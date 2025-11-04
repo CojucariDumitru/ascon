@@ -4,9 +4,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ ok: false, error: 'Method not allowed' });
   }
 
-  const {
-    name, company, email, phone, pickup, delivery, notes, ...rest
-  } = req.body || {};
+  const { name, company, email, phone, pickup, delivery, notes, ...rest } = req.body || {};
 
   try {
     const nodemailer = (await import('nodemailer')).default;
@@ -14,99 +12,82 @@ export default async function handler(req, res) {
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST || 'smtp.gmail.com',
       port: Number(process.env.SMTP_PORT || 465),
-      secure: Number(process.env.SMTP_PORT || 465) === 465, // SSL on 465
+      secure: Number(process.env.SMTP_PORT || 465) === 465, // SSL on 465; STARTTLS on 587
       auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
     });
 
-    // ---- pretty formatting ----
-    const labels = {
-      name: 'Name',
-      company: 'Company',
-      email: 'Email',
-      phone: 'Phone',
-      commodity: 'Commodity',
-      weight: 'Weight',
-      dims: 'Dimensions',
-      pickup: 'Pickup',
-      delivery: 'Delivery',
-      date: 'Pickup Date',
-      cdl: 'CDL Class',
-      flatbed_exp: 'Flatbed Experience (yrs)',
-      position: 'Position',
-      twic: 'TWIC',
-      home_state: 'Home State',
-      notes: 'Notes',
-      source: 'Source'
-    };
-
-    // Collect values (include both shipper + driver fields if present)
+    // Build unified data object from whichever fields were sent
     const data = {
-      name, company, email, phone,
-      commodity: rest?.commodity, weight: rest?.weight, dims: rest?.dims,
-      pickup, delivery, date: rest?.date,
-      cdl: rest?.cdl, flatbed_exp: rest?.flatbed_exp, position: rest?.position, twic: rest?.twic,
-      home_state: rest?.home_state,
-      notes, source: rest?.source
+      Source: rest?.source, // "Driver Recruiting" or "Shipper Quote"
+      Name: name,
+      Company: company,
+      Email: email,
+      Phone: phone,
+      Commodity: rest?.commodity,
+      Weight: rest?.weight,
+      Dimensions: rest?.dims,
+      Pickup: pickup,
+      Delivery: delivery,
+      'Pickup Date': rest?.date,
+      'CDL Class': rest?.cdl,
+      'Flatbed Experience (yrs)': rest?.flatbed_exp,
+      Position: rest?.position,
+      TWIC: rest?.twic,
+      'Home State': rest?.home_state,
+      Notes: notes,
     };
 
-    const lines = [];
-    for (const [k, v] of Object.entries(data)) {
-      if (v != null && String(v).trim() !== '') {
-        lines.push(`${labels[k] || k}: ${v}`);
-      }
-    }
+    // Keep only filled fields
+    const entries = Object.entries(data).filter(
+      ([, v]) => v != null && String(v).trim() !== ''
+    );
 
-    // Optional: split recipients by form type
-    // const to = rest?.source === 'Shipper Quote'
-    //   ? (process.env.SHIPPER_TO || 'dispatch@shipascon.com')
-    //   : (process.env.DRIVER_TO  || 'dima@shipascon.com');
+    // Plain-text body
+    const text = entries.map(([k, v]) => `${k}: ${v}`).join('\n');
 
-    const to = process.env.TO_EMAIL || 'dima@shipascon.com';
-
-    const subject = `[${rest?.source || 'Website'}] ${
-      (company ? company + ' — ' : '') +
-      (pickup ? pickup + ' → ' : '') +
-      (delivery || '')
-    }${name ? ' · ' + name : ''}`.trim() || 'New submission';
-
-    // Simple HTML table
-    const row = (label, value) =>
-      (value == null || String(value).trim() === '')
-        ? ''
-        : `<tr><td style="padding:6px 10px;color:#555">${label}</td><td style="padding:6px 10px;color:#000;font-weight:600">${String(value).replace(/\n/g,'<br>')}</td></tr>`;
+    // HTML body
+    const htmlRow = (k, v) => `
+      <tr>
+        <td style="padding:8px 10px;color:#555;border-bottom:1px solid #eee">${k}</td>
+        <td style="padding:8px 10px;color:#000;font-weight:600;border-bottom:1px solid #eee">${String(v).replace(/\n/g,'<br>')}</td>
+      </tr>`;
 
     const html = `
-      <div style="font:14px/1.45 ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial">
+      <div style="font:14px/1.5 ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial">
         <h2 style="margin:0 0 10px 0">ASCON Website — ${rest?.source || 'Submission'}</h2>
         <table style="border-collapse:collapse;width:100%;background:#fff;border:1px solid #eee;border-radius:10px;overflow:hidden">
-          ${row(labels.name, name)}
-          ${row(labels.company, company)}
-          ${row(labels.email, email)}
-          ${row(labels.phone, phone)}
-          ${row(labels.commodity, rest?.commodity)}
-          ${row(labels.weight, rest?.weight)}
-          ${row(labels.dims, rest?.dims)}
-          ${row(labels.pickup, pickup)}
-          ${row(labels.delivery, delivery)}
-          ${row(labels.date, rest?.date)}
-          ${row(labels.cdl, rest?.cdl)}
-          ${row(labels.flatbed_exp, rest?.flatbed_exp)}
-          ${row(labels.position, rest?.position)}
-          ${row(labels.twic, rest?.twic)}
-          ${row(labels.home_state, rest?.home_state)}
-          ${row(labels.notes, notes)}
+          ${entries.map(([k, v]) => htmlRow(k, v)).join('')}
         </table>
         <p style="color:#777;margin-top:12px">MC# 1077266 · ASCON GROUP INC</p>
       </div>
     `;
+
+    // Subject: choose by source, then append helpful details
+    const src = (rest?.source || '').toLowerCase();
+    let subjectBase = 'New Website Submission';
+    if (src === 'driver recruiting') subjectBase = 'New Driver Application';
+    if (src === 'shipper quote')     subjectBase = 'New Shipper Quote';
+
+    const details = [];
+    if (company) details.push(company);
+    if (pickup || delivery) details.push(`${pickup || ''}${pickup && delivery ? ' → ' : ''}${delivery || ''}`);
+    if (name) details.push(`· ${name}`);
+    const subject = [subjectBase, details.join(' ')].filter(Boolean).join(' — ').trim();
+
+    // Recipient(s)
+    const to = process.env.TO_EMAIL || 'dima@shipascon.com';
+    // If you later want split recipients, swap the line above with:
+    // const to = src === 'shipper quote'
+    //   ? (process.env.SHIPPER_TO || 'dispatch@shipascon.com')
+    //   : (process.env.DRIVER_TO  || 'dima@shipascon.com');
 
     await transporter.sendMail({
       from: `ASCON Website <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
       to,
       replyTo: email || undefined,
       subject,
-      text: lines.join('\n'), // plaintext fallback
-      html
+      text,
+      html,
     });
 
     return res.status(200).json({ ok: true });

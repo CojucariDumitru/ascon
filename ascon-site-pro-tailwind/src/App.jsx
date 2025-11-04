@@ -758,7 +758,7 @@ const Footer = () => (
           <ul className="mt-3 space-y-2 text-sm text-white/70">
             <li>
               <a href="mailto:dispatch@shipascon.com" className="hover:underline">
-                dispatch@shipascon.com
+                dima@shipascon.com
               </a>
             </li>
             <li>
@@ -778,7 +778,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="mt-8 border-t border-white/10 pt-6 text-xs text-white/60">
-        Website by <a href="https://" className="underline decoration-dotted">your web developer</a>
+        Website by <a href="https://" className="underline decoration-dotted">Dima</a>
       </div>
     </Container>
   </footer>
@@ -806,7 +806,7 @@ export default function App() {
       "@type": "Organization",
       name: "ASCON GROUP INC",
       url: window.location.href,
-      email: "dispatch@shipascon.com",
+      email: "dima@shipascon.com",
       telephone: "+16305770997",
       address: {
         "@type": "PostalAddress",

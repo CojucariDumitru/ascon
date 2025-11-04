@@ -778,7 +778,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="mt-8 border-t border-white/10 pt-6 text-xs text-white/60">
-        Website by <a href="https://" className="underline decoration-dotted">Dima</a>
+        Website by <a href="https://www.fiverr.com/waxent/design-and-build-a-website-for-your-business" className="underline decoration-dotted">Dima</a>
       </div>
     </Container>
   </footer>

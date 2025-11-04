@@ -64,7 +64,7 @@ const NavLink = ({ label, hash, current, setRoute }) => {
   return (
     <motion.a
       href={`#${hash}`}
-      onClick={(e)=>{e.preventDefault();setRoute(hash);const el=document.getElementById(hash);el?.scrollIntoView({behavior:"smooth",block:"start"});}}
+      onClick={() => setRoute(hash)}
     className={cx(
       "relative rounded-xl px-3 py-2.5 text-[15px] md:text-base font-semibold transition select-none",
       active ? "text-white" : "text-white/80 hover:text-white hover:bg-white/5"
@@ -91,10 +91,10 @@ const Header = ({ route, setRoute, onOpenQuote }) => {
   useEffect(() => setOpen(false), [route]);
   return (
     <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-black/40 bg-black/60 border-b border-white/10">
-      <Container className="flex items-center justify-between h-14 md:h-16">
-        <a href="#home" onClick={(e)=>{e.preventDefault();setRoute("home");const el=document.getElementById("home");el?.scrollIntoView({behavior:"smooth",block:"start"});}} className="flex items-center gap-3">
+      <Container className="flex items-center justify-between py-3">
+        <a href="#home" onClick={() => setRoute("home")} className="flex items-center gap-3">
           {/* Bigger logo (menu PNG) */}
-          <img src={ASSETS.mark} alt="ASCON mark" className="max-h-full w-auto md:max-h-full w-auto object-contain" />
+          <img src={ASSETS.mark} alt="ASCON mark" className="h-28 w-22 md:h-30 md:w-30 object-contain" />
           <span className="sr-only">ASCON GROUP INC</span>
         </a>
         <nav className="hidden md:flex items-center gap-1 relative">
@@ -134,7 +134,7 @@ const Header = ({ route, setRoute, onOpenQuote }) => {
             exit={{ height: 0, opacity: 0 }}
             className="md:hidden border-t border-white/10"
           >
-            <Container className="h-14 md:h-16 grid grid-cols-2 gap-2">
+            <Container className="py-2 grid grid-cols-2 gap-2">
               {[
                 ["Home", "home"],
                 ["Services", "services"],
@@ -166,7 +166,7 @@ const Hero = ({ onOpenQuote }) => (
       className="absolute inset-0 h-full w-full object-cover opacity-35"
     />
     <div className="absolute inset-0 bg-gradient-to-b from-black via-black/70 to-black" />
-    <Container className="relative z-10 py-24 sm:h-14 md:h-16">
+    <Container className="relative z-10 py-24 sm:py-32">
       <Pill>ASCON GROUP INC · MC# 1077266</Pill>
       <h1 className="mt-6 max-w-4xl text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
         Precision Flatbed & Specialized Freight
@@ -189,7 +189,7 @@ const Hero = ({ onOpenQuote }) => (
       </div>
     </Container>
     <div className="border-t border-white/10 bg-black/70">
-      <Container className="h-14 md:h-16">
+      <Container className="py-3">
         <div className="flex items-center justify-between text-white/60 text-xs sm:text-sm gap-4 overflow-x-auto no-scrollbar">
           {["Steel & Machinery", "Construction Materials", "Energy & Infrastructure", "Project Freight", "Expedite"].map(
             (tag) => (
@@ -718,7 +718,7 @@ const QuoteWizard = ({ open, onClose }) => {
 
 const Footer = () => (
   <footer className="bg-black text-white">
-    <Container className="h-14 md:h-16">
+    <Container className="py-10">
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <img src={ASSETS.logoDark} alt="ASCON" className="h-7 w-auto" />

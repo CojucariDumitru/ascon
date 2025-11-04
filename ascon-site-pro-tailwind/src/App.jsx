@@ -356,7 +356,7 @@ const Safety = () => (
               <p className="text-sm text-gray-600">MC# 1077266</p>
               <p className="text-lg font-semibold">ASCON GROUP INC</p>
               <p className="text-sm text-gray-600">2413 Georgetown Cir, Aurora, IL 60503</p>
-              <p className="mt-2 text-sm text-gray-600">Email: dispatch@shipascon.com · Tel: (630) 577-0997</p>
+              <p className="mt-2 text-sm text-gray-600">Email: dima@shipascon.com · Tel: (815) 669-1400</p>
             </div>
           </div>
         </div>
@@ -498,7 +498,7 @@ const Contact = () => {
       setOk(true);
       formRef.current?.reset();
     } catch (e) {
-      setErr("Message not sent. Please email dispatch@shipascon.com or call (630) 577-0997.");
+      setErr("Message not sent. Please email dima@shipascon.com or call (815) 669-1400.");
     } finally {
       setLoading(false);
     }
@@ -514,14 +514,14 @@ const Contact = () => {
             <div className="mt-6 space-y-2 text-sm text-white/70">
               <div>
                 Phone:{" "}
-                <a href="tel:+16305770997" className="underline">
-                  (630) 577-0997
+                <a href="tel:+18156691400" className="underline">
+                  (815) 669-1400
                 </a>
               </div>
               <div>
                 Email:{" "}
-                <a href="mailto:dispatch@shipascon.com" className="underline">
-                  dispatch@shipascon.com
+                <a href="mailto:dima@shipascon.com" className="underline">
+                  dima@shipascon.com
                 </a>
               </div>
               <div>Address: 2413 Georgetown Cir, Aurora, IL 60503</div>
@@ -584,8 +584,8 @@ const Contact = () => {
               </Button>
               <span className="text-sm text-white/70">
                 or email{" "}
-                <a href="mailto:dispatch@shipascon.com" className="underline">
-                  dispatch@shipascon.com
+                <a href="mailto:dima@shipascon.com" className="underline">
+                  dima@shipascon.com
                 </a>
               </span>
             </div>
@@ -757,13 +757,13 @@ const Footer = () => (
           <div className="font-semibold">Contact</div>
           <ul className="mt-3 space-y-2 text-sm text-white/70">
             <li>
-              <a href="mailto:dispatch@shipascon.com" className="hover:underline">
+              <a href="mailto:dima@shipascon.com" className="hover:underline">
                 dima@shipascon.com
               </a>
             </li>
             <li>
-              <a href="tel:+16305770997" className="hover:underline">
-                (630) 577-0997
+              <a href="tel:+8156691400" className="hover:underline">
+                (815) 669-1400
               </a>
             </li>
             <li>Aurora, IL</li>
@@ -807,7 +807,7 @@ export default function App() {
       name: "ASCON GROUP INC",
       url: window.location.href,
       email: "dima@shipascon.com",
-      telephone: "+16305770997",
+      telephone: "+18156691400",
       address: {
         "@type": "PostalAddress",
         streetAddress: "2413 Georgetown Cir",

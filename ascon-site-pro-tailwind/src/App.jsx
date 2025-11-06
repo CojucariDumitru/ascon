@@ -115,7 +115,7 @@ const Header = ({ route, setRoute, onOpenQuote }) => {
       <Container className="flex h-full items-center justify-between gap-4">
         <a href="#home" onClick={() => setRoute("home")} className="flex items-center gap-3">
           {/* Mark icon with responsive sizing for shrinking header */}
-          <img src={ASSETS.mark} alt="ASCON mark" className="h-16 w-16 md:h-20 md:w-20 object-contain transition-all duration-300" />
+          <img src={ASSETS.mark} alt="ASCON mark" className="h-18 w-18 md:h-22 md:w-22 object-contain transition-all duration-300" />
           <span className="sr-only">ASCON GROUP INC</span>
         </a>
         <nav className="hidden md:flex items-center gap-1 relative">
@@ -215,9 +215,21 @@ const Hero = ({ onOpenQuote }) => (
           We roll securement-first crews, white-glove updates, and coast-to-coast coverage so your high-value freight hits the dock ready. Every move is partner caliber: timelines, communication, and appearance dialed in.
         </p>
         <div className="mt-9 flex flex-wrap items-center gap-4">
-          <Button onClick={onOpenQuote} variant="glow">
-            Launch Shipper Quote
-          </Button>
+          <motion.div
+            whileHover={{ scale: 1.03, y: -3 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 300, damping: 18 }}
+            className="shadow-[0_18px_35px_rgba(198,166,100,0.32)] rounded-2xl"
+          >
+            <Button onClick={onOpenQuote} variant="glow" className="px-6 py-3 flex items-center gap-2">
+              <span>Launch Shipper Quote</span>
+              <motion.span
+                className="inline-flex h-2 w-2 rounded-full bg-black"
+                animate={{ opacity: [0.4, 1, 0.4], scale: [0.8, 1.1, 0.8] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </Button>
+          </motion.div>
           <Button as="a" href="#contact" variant="ghost">
             Talk To Recruiting
           </Button>
@@ -626,151 +638,7 @@ const lanePins = [
   },
 ];
 
-const Lanes = () => {
-  const [activeLane, setActiveLane] = useState(lanePins[0]);
-  return (
-    <section id="lanes" className="bg-[var(--dark)] py-20 text-white" style={{ ["--dark"]: theme.dark }}>
-      <Container>
-        <SectionTitle
-          eyebrow="Coverage"
-          title="Preferred Lanes"
-          desc="High-trust corridors where we already have top-tier driver familiarity and facility relationships."
-          right={<Pill tone="dark">Live ETA updates</Pill>}
-        />
-        <div className="mt-12 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="relative">
-            <div className="relative h-80 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#0b1220] shadow-xl">
-              <div className="absolute inset-0 opacity-60" style={{ backgroundImage: "radial-gradient(circle at 20% 30%, rgba(198,166,100,0.25), transparent 55%), radial-gradient(circle at 80% 70%, rgba(59,130,246,0.2), transparent 50%)" }} />
-              <div className="absolute inset-0">
-                <svg viewBox="0 0 600 360" className="absolute inset-0 h-full w-full text-white/15" role="presentation">
-                  <defs>
-                    <linearGradient id="lane-glow" x1="0%" x2="100%" y1="0%" y2="100%">
-                      <stop offset="0%" stopColor="rgba(148,163,184,0.05)" />
-                      <stop offset="100%" stopColor="rgba(30,64,175,0.25)" />
-                    </linearGradient>
-                    <radialGradient id="lane-node" cx="50%" cy="50%" r="50%">
-                      <stop offset="0%" stopColor="rgba(198,166,100,0.45)" />
-                      <stop offset="80%" stopColor="rgba(198,166,100,0.05)" />
-                      <stop offset="100%" stopColor="transparent" />
-                    </radialGradient>
-                  </defs>
-                  <path
-                    d="M70 180 L110 150 L170 155 L210 120 L270 125 L320 160 L380 150 L430 175 L490 185 L540 175 L565 205 L520 240 L485 260 L420 250 L360 230 L300 225 L240 240 L190 225 L150 205 L120 225 L95 205 Z"
-                    fill="url(#lane-glow)"
-                    stroke="rgba(148,163,184,0.22)"
-                    strokeWidth="1.4"
-                  />
-                  {[{ x: 170, y: 155 }, { x: 300, y: 225 }, { x: 420, y: 250 }, { x: 520, y: 240 }].map((node, idx) => (
-                    <circle key={idx} cx={node.x} cy={node.y} r={28} fill="url(#lane-node)" />
-                  ))}
-                  <path
-                    d="M170 155 C220 120 300 115 360 150"
-                    stroke="rgba(198,166,100,0.35)"
-                    strokeWidth="1.6"
-                    strokeDasharray="8 10"
-                    fill="none"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M300 225 C360 210 430 200 520 240"
-                    stroke="rgba(59,130,246,0.25)"
-                    strokeWidth="1.2"
-                    strokeDasharray="6 9"
-                    fill="none"
-                    strokeLinecap="round"
-                  />
-                </svg>
-                <div
-                  className="absolute inset-0 opacity-[0.18]"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(90deg, rgba(148,163,184,0.12) 1px, transparent 1px), linear-gradient(180deg, rgba(148,163,184,0.12) 1px, transparent 1px)",
-                    backgroundSize: "46px 46px, 46px 46px",
-                  }}
-                />
-              </div>
-              <div className="absolute inset-0">
-                {lanePins.map((lane) => {
-                  const active = lane.name === activeLane.name;
-                  return (
-                    <button
-                      type="button"
-                      key={lane.name}
-                      onMouseEnter={() => setActiveLane(lane)}
-                      onFocus={() => setActiveLane(lane)}
-                      onClick={() => setActiveLane(lane)}
-                      className={cx(
-                        "absolute -translate-x-1/2 -translate-y-1/2 rounded-full border px-3.5 py-1.5 text-[11px] font-semibold tracking-[0.18em] transition",
-                        active ? "border-[var(--gold)] bg-[var(--gold)] text-black shadow-xl" : "border-white/25 bg-black/60 text-white/75 hover:border-[var(--gold)]/40 hover:bg-[var(--gold)]/15"
-                      )}
-                      style={{ left: `${lane.coords.x}%`, top: `${lane.coords.y}%` }}
-                    >
-                      {lane.short}
-                    </button>
-                  );
-                })}
-              </div>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeLane.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-                  className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/10 bg-black/75 px-5 py-4"
-                >
-                  <div className="text-xs uppercase tracking-[0.3em] text-white/60">{activeLane.name}</div>
-                  <div className="mt-2 text-sm text-white/85">{activeLane.summary}</div>
-                  <div className="mt-3 flex flex-wrap gap-2 text-[11px] text-white/70">
-                    {activeLane.lanes.map((route) => (
-                      <span key={route} className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1">
-                        {route}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="mt-3 text-xs text-white/60">{activeLane.service}</p>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
-          <div className="space-y-4">
-            {lanePins.map((lane) => {
-              const active = lane.name === activeLane.name;
-              return (
-                <motion.button
-                  type="button"
-                  key={lane.name}
-                  onMouseEnter={() => setActiveLane(lane)}
-                  onFocus={() => setActiveLane(lane)}
-                  onClick={() => setActiveLane(lane)}
-                  whileHover={{ y: -2 }}
-                  className={cx(
-                    "w-full rounded-3xl border px-5 py-4 text-left transition",
-                    active ? "border-[var(--gold)] bg-white/10 text-white shadow-lg" : "border-white/10 bg-white/5 text-white/80 hover:border-[var(--gold)]/40"
-                  )}
-                  style={{ willChange: "transform" }}
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="text-base font-semibold">{lane.name}</div>
-                    <span className="text-xs uppercase tracking-[0.25em] text-white/50">primary</span>
-                  </div>
-                  <div className="mt-2 flex flex-wrap gap-2 text-xs text-white/70">
-                    {lane.lanes.map((route) => (
-                      <span key={route} className="rounded-full border border-white/10 bg-black/30 px-2.5 py-1">
-                        {route}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="mt-3 text-sm text-white/70">{lane.service}</p>
-                </motion.button>
-              );
-            })}
-          </div>
-        </div>
-      </Container>
-    </section>
-  );
-};
+
 
 const About = () => (
   <section id="about" className="bg-[var(--dark)] py-20 text-white" style={{ ["--dark"]: theme.black }}>
@@ -1377,6 +1245,10 @@ export default function App() {
     </div>
   );
 }
+
+
+
+
 
 
 

@@ -115,7 +115,7 @@ const Header = ({ route, setRoute, onOpenQuote }) => {
       <Container className="flex h-full items-center justify-between gap-4">
         <a href="#home" onClick={() => setRoute("home")} className="flex items-center gap-3">
           {/* Mark icon with responsive sizing for shrinking header */}
-          <img src={ASSETS.mark} alt="ASCON mark" className="h-18 w-18 md:h-22 md:w-22 object-contain transition-all duration-300" />
+          <img src={ASSETS.mark} alt="ASCON mark" className="h-30 w-30 md:h-32 md:w-32 object-contain transition-all duration-300" />
           <span className="sr-only">ASCON GROUP INC</span>
         </a>
         <nav className="hidden md:flex items-center gap-1 relative">
@@ -125,7 +125,6 @@ const Header = ({ route, setRoute, onOpenQuote }) => {
             ["Fleet", "fleet"],
             ["Safety", "safety"],
             ["About", "about"],
-            ["Lanes", "lanes"],
             ["Careers", "careers"],
             ["Contact", "contact"],
           ].map(([label, hash]) => (
@@ -157,17 +156,16 @@ const Header = ({ route, setRoute, onOpenQuote }) => {
           >
             <Container className="py-2 grid grid-cols-2 gap-2">
               {[
-                ["Home", "home"],
-                ["Services", "services"],
-                ["Fleet", "fleet"],
-                ["Safety", "safety"],
-                ["About", "about"],
-                ["Lanes", "lanes"],
-                ["Careers", "careers"],
-                ["Contact", "contact"],
-              ].map(([label, hash]) => (
-                <NavLink key={hash} label={label} hash={hash} current={route} setRoute={setRoute} />
-              ))}
+            ["Home", "home"],
+            ["Services", "services"],
+            ["Fleet", "fleet"],
+            ["Safety", "safety"],
+            ["About", "about"],
+            ["Careers", "careers"],
+            ["Contact", "contact"],
+          ].map(([label, hash]) => (
+            <NavLink key={hash} label={label} hash={hash} current={route} setRoute={setRoute} />
+          ))}
               <Button variant="gold" onClick={onOpenQuote}>
                 Get a Quote
               </Button>
@@ -186,94 +184,211 @@ const heroStats = [
   { label: "Average securement score", value: "A+" },
 ];
 
-const Hero = ({ onOpenQuote }) => (
-  <div className="relative isolate overflow-hidden">
-    <div className="absolute inset-0">
-      <video
-        className="h-full w-full object-cover"
-        src={ASSETS.heroVideo}
-        poster={ASSETS.heroTruck}
-        autoPlay
-        playsInline
-        muted
-        loop
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/95" />
-    </div>
-    <Container className="relative z-10 py-24 sm:py-32">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="max-w-4xl"
-      >
-        <Pill>ASCON GROUP INC | MC# 1077266</Pill>
-        <h1 className="mt-6 text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.05]">
-          Elite Flatbed Precision For Critical Freight
-        </h1>
-        <p className="mt-5 max-w-2xl text-white/85 text-base sm:text-lg">
-          We roll securement-first crews, white-glove updates, and coast-to-coast coverage so your high-value freight hits the dock ready. Every move is partner caliber: timelines, communication, and appearance dialed in.
-        </p>
-        <div className="mt-9 flex flex-wrap items-center gap-4">
-          <motion.div
-            whileHover={{ scale: 1.03, y: -3 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 300, damping: 18 }}
-            className="shadow-[0_18px_35px_rgba(198,166,100,0.32)] rounded-2xl"
-          >
-            <Button onClick={onOpenQuote} variant="glow" className="px-6 py-3 flex items-center gap-2">
-              <span>Launch Shipper Quote</span>
-              <motion.span
-                className="inline-flex h-2 w-2 rounded-full bg-black"
-                animate={{ opacity: [0.4, 1, 0.4], scale: [0.8, 1.1, 0.8] }}
-                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-              />
-            </Button>
-          </motion.div>
-          <Button as="a" href="#contact" variant="ghost">
-            Talk To Recruiting
-          </Button>
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.6, duration: 0.7, ease: "easeOut" }}
-            className="flex items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-4 py-2 text-sm text-white/80 backdrop-blur"
-          >
-            <span className="inline-flex h-3 w-3 animate-ping rounded-full bg-emerald-400/80" />
-            <span>Dispatch actively monitoring routes</span>
-          </motion.div>
-        </div>
-      </motion.div>
-      <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {heroStats.map((stat, i) => (
-          <motion.div
-            key={stat.label}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35 + i * 0.08, duration: 0.45, ease: [0.33, 1, 0.68, 1] }}
-            className="rounded-3xl border border-white/15 bg-black/55 p-5 text-white/80"
-          >
-            <div className="text-xs uppercase tracking-[0.25em] text-white/50">{stat.label}</div>
-            <div className="mt-3 text-3xl font-semibold text-white">{stat.value}</div>
-          </motion.div>
-        ))}
+const heroUpdates = [
+  { title: "Aurora → Houston", detail: "Steel coils | ETA 13:45 | Driver Z. Martinez" },
+  { title: "Chicago → Denver", detail: "Machinery | Cleared ice checkpoint | +2 min variance" },
+  { title: "Joliet → Charlotte", detail: "Lumber | Check-call logged | No exceptions" },
+  { title: "Detroit → Tulsa", detail: "Project freight | Permit escort confirmed" },
+];
+
+const recentLoads = [
+  {
+    lane: "Aurora, IL → Houston, TX",
+    commodity: "Placeholder commodity",
+    price: "Placeholder rate",
+  },
+  {
+    lane: "Rockford, IL → Salt Lake City, UT",
+    commodity: "Placeholder commodity",
+    price: "Placeholder rate",
+  },
+  {
+    lane: "Detroit, MI → Tulsa, OK",
+    commodity: "Placeholder commodity",
+    price: "Placeholder rate",
+  },
+  {
+    lane: "Joliet, IL → Charlotte, NC",
+    commodity: "Placeholder commodity",
+    price: "Placeholder rate",
+  },
+];
+
+
+const Hero = ({ onOpenQuote }) => {
+  const [updateIndex, setUpdateIndex] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setUpdateIndex((idx) => (idx + 1) % heroUpdates.length);
+    }, 3800);
+    return () => clearInterval(id);
+  }, []);
+  const currentUpdate = heroUpdates[updateIndex];
+  return (
+    <div className="relative isolate overflow-hidden">
+      <div className="absolute inset-0">
+        <video
+          className="h-full w-full object-cover"
+          src={ASSETS.heroVideo}
+          poster={ASSETS.heroTruck}
+          autoPlay
+          playsInline
+          muted
+          loop
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/95" />
       </div>
-    </Container>
-    <div className="border-t border-white/15 bg-black/60">
-      <Container className="py-4">
-        <div className="flex items-center justify-between text-white/65 text-xs sm:text-sm gap-4 overflow-x-auto no-scrollbar">
-          {["Steel & Machinery", "Construction Materials", "Energy & Infrastructure", "Project Freight", "Expedite", "Secure Storage"].map(
-            (tag) => (
-              <motion.div key={tag} whileHover={{ scale: 1.05 }} className="whitespace-nowrap">
-                {tag}
+      <Container className="relative z-10 py-24 sm:py-32">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-4xl"
+        >
+          <Pill>ASCON GROUP INC | MC# 1077266</Pill>
+          <h1 className="mt-6 text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.05]">
+            Elite Flatbed Precision For Critical Freight
+          </h1>
+          <p className="mt-5 max-w-2xl text-white/85 text-base sm:text-lg">
+            We roll securement-first crews, white-glove updates, and coast-to-coast coverage so your high-value freight hits the dock ready. Every move is partner caliber: timelines, communication, and appearance dialed in.
+          </p>
+          <div className="mt-9 flex flex-wrap items-center gap-4">
+            <motion.div
+              whileHover={{ scale: 1.02, y: -3 }}
+              whileTap={{ scale: 0.99 }}
+              transition={{ type: "tween", duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+              className="rounded-2xl"
+              style={{ willChange: "transform" }}
+            >
+              <Button
+                onClick={onOpenQuote}
+                variant="glow"
+                className="group flex items-center gap-3 px-6 py-3 shadow-[0_12px_28px_rgba(198,166,100,0.25)] transition-shadow duration-200 group-hover:shadow-[0_10px_22px_rgba(198,166,100,0.2)]"
+              >
+                <span>Launch Shipper Quote</span>
+                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-black/80 text-xs text-[var(--gold)] transition-transform duration-150 group-hover:translate-x-1">
+                  →
+                </span>
+              </Button>
+            </motion.div>
+            <Button as="a" href="#contact" variant="ghost">
+              Talk To Recruiting
+            </Button>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={currentUpdate.title}
+                initial={{ opacity: 0, x: 24 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -24 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                className="flex w-full max-w-xl items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-4 py-2 text-sm text-white/80 backdrop-blur"
+              >
+                <span className="inline-flex h-3 w-3 animate-ping rounded-full bg-emerald-400/80" />
+                <div>
+                  <div className="font-semibold uppercase tracking-[0.25em] text-white/60">{currentUpdate.title}</div>
+                  <div className="text-xs text-white/70">{currentUpdate.detail}</div>
+                </div>
               </motion.div>
-            )
-          )}
+            </AnimatePresence>
+          </div>
+        </motion.div>
+        <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {heroStats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35 + i * 0.08, duration: 0.45, ease: [0.33, 1, 0.68, 1] }}
+              className="rounded-3xl border border-white/15 bg-black/55 p-5 text-white/80"
+            >
+              <div className="text-xs uppercase tracking-[0.25em] text-white/50">{stat.label}</div>
+              <div className="mt-3 text-3xl font-semibold text-white">{stat.value}</div>
+            </motion.div>
+          ))}
         </div>
       </Container>
+      <div className="border-t border-white/15 bg-black/60">
+        <Container className="py-4">
+          <div className="flex items-center justify-between text-white/65 text-xs sm:text-sm gap-4 overflow-x-auto no-scrollbar">
+            {["Steel & Machinery", "Construction Materials", "Energy & Infrastructure", "Project Freight", "Expedite", "Secure Storage"].map(
+              (tag) => (
+                <motion.div key={tag} whileHover={{ scale: 1.05 }} className="whitespace-nowrap">
+                  {tag}
+                </motion.div>
+              )
+            )}
+          </div>
+        </Container>
+      </div>
     </div>
-  </div>
-);
+  );
+};
+
+const RecentLoads = () => {
+  const [active, setActive] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActive((idx) => (idx + 1) % recentLoads.length);
+    }, 4200);
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <section className="bg-black py-16 text-white">
+      <Container>
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+          <div className="max-w-xl">
+            <Pill tone="gold">Recent Loads</Pill>
+            <h2 className="mt-4 text-3xl font-bold tracking-tight lg:text-4xl">Best hauls & marquee runs</h2>
+            <p className="mt-3 text-white/70">
+              High-impact moves that capture ASCON standards. Update lane + rate details as new wins land.
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            {recentLoads.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActive(idx)}
+                className={cx(
+                  "h-2 rounded-full transition-all",
+                  idx === active ? "w-8 bg-[var(--gold)]" : "w-3 bg-white/30 hover:bg-white/60"
+                )}
+                aria-label={`Show load ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="mt-10 overflow-hidden">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={recentLoads[active].lane}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -24 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="grid gap-8 rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur md:grid-cols-[1.4fr_1fr]"
+            >
+              <div>
+                <div className="text-sm uppercase tracking-[0.25em] text-white/50">Lane</div>
+                <div className="mt-2 text-2xl font-semibold">{recentLoads[active].lane}</div>
+                <div className="mt-4 text-sm text-white/80">
+                  <span className="font-medium text-white/90">Commodity: </span>
+                  {recentLoads[active].commodity}
+                </div>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-black/50 p-6 text-sm text-white/80">
+                <div className="text-xs uppercase tracking-[0.25em] text-white/50">Lane pricing</div>
+                <div className="mt-3 text-2xl font-semibold text-white">{recentLoads[active].price}</div>
+                <div className="mt-4 text-xs text-white/60">
+                  Replace with actual payout / rate when updating weekly showcase.
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </Container>
+    </section>
+  );
+};
 const SectionTitle = ({ eyebrow, title, desc, right }) => (
   <div className="flex items-end justify-between gap-6">
     <div>
@@ -339,14 +454,14 @@ const Services = () => (
             key={service.title}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -4, scale: 1.005 }}
+            whileHover={{ y: -6, scale: 1.01 }}
             whileTap={{ scale: 0.995 }}
-            transition={{ delay: i * 0.03, duration: 0.18, ease: [0.33, 1, 0.68, 1] }}
+            transition={{ delay: i * 0.03, duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true, amount: 0.4 }}
-            className="group relative overflow-hidden rounded-3xl border border-gray-200/70 bg-white/95 p-7 shadow-sm transition-all duration-150 hover:border-gray-200 hover:shadow-xl"
+            className="group relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-7 shadow-sm transition-colors duration-150 hover:border-gray-300 hover:shadow-lg"
             style={{ willChange: "transform" }}
           >
-            <div className="pointer-events-none absolute -top-32 right-0 h-48 w-48 rounded-full bg-[var(--gold)]/10 blur-3xl transition-all duration-500 group-hover:-top-20 group-hover:blur-xl" />
+            <div className="pointer-events-none absolute -top-28 right-0 h-40 w-40 rounded-full bg-[var(--gold)]/12 opacity-70 transition-all duration-400 group-hover:-top-16 group-hover:opacity-100" />
             <div className="flex items-center justify-between gap-3">
               <span className="inline-flex items-center rounded-full border border-gray-200/70 bg-gray-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-gray-500">
                 {service.badge}
@@ -587,56 +702,7 @@ const Safety = () => {
   );
 };
 
-const lanePins = [
-  {
-    name: "Midwest <-> Texas",
-    short: "Midwest <> Texas",
-    summary: "Steel and machinery lanes linking the Great Lakes with the Gulf.",
-    coords: { x: 52, y: 68 },
-    lanes: ["Chicago <-> Dallas", "Joliet <-> Houston", "Gary <-> San Antonio"],
-    service: "Dedicated 3-truck rotation with drivers cleared for petrochemical and mill docks.",
-  },
-  {
-    name: "Midwest <-> Southeast",
-    short: "Midwest <> Southeast",
-    summary: "High-service flatbed into the Carolinas, Georgia, and Florida panhandle.",
-    coords: { x: 68, y: 66 },
-    lanes: ["Chicago <-> Charlotte", "Joliet <-> Atlanta", "Louisville <-> Jacksonville"],
-    service: "Night dispatch covers all appointments with humidity-aware securement plans.",
-  },
-  {
-    name: "Midwest <-> Mountain West",
-    short: "Midwest <> Mountain",
-    summary: "Winter-experienced teams covering I-80 and I-70 corridors.",
-    coords: { x: 30, y: 48 },
-    lanes: ["Chicago <-> Denver", "Rockford <-> Salt Lake City", "Quad Cities <-> Boise"],
-    service: "Chains, beacons, and severe-weather protocols ready for sudden storms.",
-  },
-  {
-    name: "Great Lakes Regional",
-    short: "Great Lakes",
-    summary: "Daily loops supporting steel and manufacturing between IL, IN, MI, OH, and WI.",
-    coords: { x: 54, y: 46 },
-    lanes: ["Aurora <-> Detroit", "Chicago <-> Cleveland", "Milwaukee <-> Indianapolis"],
-    service: "Drop-and-hook programs with rapid document turn-in under 90 minutes.",
-  },
-  {
-    name: "Illinois <-> Ohio Corridor",
-    short: "IL <> OH",
-    summary: "Precision timing for coil, plate, and tube processors.",
-    coords: { x: 60, y: 50 },
-    lanes: ["Joliet <-> Toledo", "Gary <-> Columbus", "Calumet City <-> Youngstown"],
-    service: "Appointment-driven with escorts and scale bypass when needed.",
-  },
-  {
-    name: "Rapid build projects",
-    short: "Rapid Build",
-    summary: "Pop-up lanes built for plant launches and construction surges.",
-    coords: { x: 45, y: 58 },
-    lanes: ["Aurora staging hub", "Nationwide surge capacity", "Broker collaboration pods"],
-    service: "We deploy a dedicated ops pod with cadence calls and shared dashboards.",
-  },
-];
+
 
 
 
@@ -700,107 +766,103 @@ const driverTestimonial = {
   tenure: "2 years with the fleet",
 };
 
-const Careers = () => (
-  <section id="careers" className="bg-white py-20 text-black">
-    <Container>
-      <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-        <div>
-          <SectionTitle
-            title="Careers at ASCON"
-            desc="We hire professionals who take pride in securement, equipment care, and calm communication at the dock."
-          />
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            {careerHighlights.map((item) => (
-              <motion.div
-                key={item}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.4 }}
-                className="rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700"
-              >
-                <div className="flex items-start gap-2">
-                  <span className="mt-1 inline-flex h-2 w-2 flex-shrink-0 rounded-full" style={{ background: theme.gold }} />
-                  <span>{item}</span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-          <div className="mt-10">
-            <div className="text-sm font-semibold uppercase tracking-[0.3em] text-gray-500">Hiring process</div>
-            <div className="mt-4 space-y-4">
-              {hiringSteps.map((step, idx) => (
+const payProfiles = {
+  company: { label: "Company Driver", percent: 0.3 },
+  owner: { label: "Owner-Operator", percent: 0.88 },
+};
+
+const Careers = () => {
+  const [calcType, setCalcType] = useState("company");
+  const [calcRevenue, setCalcRevenue] = useState(6500);
+  const profile = payProfiles[calcType];
+  return (
+    <section id="careers" className="bg-white py-20 text-black">
+      <Container>
+        <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+          <div>
+            <SectionTitle
+              title="Careers at ASCON"
+              desc="We hire professionals who take pride in securement, equipment care, and calm communication at the dock."
+            />
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {careerHighlights.map((item) => (
                 <motion.div
-                  key={step.title}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  key={item}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.4 }}
-                  className="flex items-start gap-4 rounded-2xl border border-gray-200 bg-white px-4 py-4 shadow-sm"
+                  className="rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700"
                 >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--gold)]/15 text-sm font-semibold text-gray-700">
-                    {String(idx + 1).padStart(2, "0")}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <span className="text-sm font-semibold text-black">{step.title}</span>
-                      <span className="text-xs uppercase tracking-[0.3em] text-gray-500">{step.duration}</span>
-                    </div>
-                    <p className="mt-1 text-sm text-gray-600">{step.detail}</p>
+                  <div className="flex items-start gap-2">
+                    <span className="mt-1 inline-flex h-2 w-2 flex-shrink-0 rounded-full" style={{ background: theme.gold }} />
+                    <span>{item}</span>
                   </div>
                 </motion.div>
               ))}
             </div>
-          </div>
-        </div>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          className="space-y-6"
-        >
-          <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-md">
-            <div className="flex items-center justify-between gap-3">
-              <h3 className="text-lg font-semibold text-black">Open Roles</h3>
-              <span className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs uppercase tracking-[0.25em] text-gray-500">Aurora HQ</span>
+            <div className="mt-10">
+              <div className="text-sm font-semibold uppercase tracking-[0.3em] text-gray-500">Hiring process</div>
+              <div className="mt-4 space-y-4">
+                {hiringSteps.map((step, idx) => (
+                  <motion.div
+                    key={step.title}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.4 }}
+                    className="flex items-start gap-4 rounded-2xl border border-gray-200 bg-white px-4 py-4 shadow-sm"
+                  >
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--gold)]/15 text-sm font-semibold text-gray-700">
+                      {String(idx + 1).padStart(2, "0")}
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex flex-wrap items-center gap-3">
+                        <span className="text-sm font-semibold text-black">{step.title}</span>
+                        <span className="text-xs uppercase tracking-[0.3em] text-gray-500">{step.duration}</span>
+                      </div>
+                      <p className="mt-1 text-sm text-gray-600">{step.detail}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
-            <div className="mt-4 divide-y divide-gray-200">
-              {openRoles.map((r) => (
-                <div key={r.role} className="py-4">
-                  <div className="flex flex-wrap items-center justify-between gap-3">
-                    <div className="text-base font-medium text-black">{r.role}</div>
-                    <span className="rounded-full border border-[var(--gold)]/40 bg-[var(--gold)]/10 px-3 py-1 text-xs font-semibold text-gray-700">{r.tag}</span>
-                  </div>
-                  <div className="mt-1 text-sm text-gray-600">{r.details}</div>
-                </div>
-              ))}
-            </div>
-            <Button as="a" href="#contact" variant="glow" className="mt-6 w-full">
-              Send Recruiting Info
-            </Button>
           </div>
           <motion.div
-            initial={{ opacity: 0, y: 25 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            className="relative overflow-hidden rounded-3xl border border-gray-200 bg-gradient-to-br from-black via-gray-900 to-gray-800 p-6 text-white shadow-xl"
+            viewport={{ once: true, amount: 0.3 }}
+            className="space-y-6"
           >
-            <div className="absolute -top-10 right-0 h-32 w-32 rounded-full bg-[var(--gold)]/30 blur-3xl" />
-            <div className="relative z-10">
-              <div className="text-xs uppercase tracking-[0.3em] text-white/60">Driver voice</div>
-              <blockquote className="mt-3 text-lg font-medium leading-relaxed">"{driverTestimonial.quote}"</blockquote>
-              <div className="mt-4 text-sm text-white/70">
-                {driverTestimonial.name}
-                <span className="ml-2 text-white/40">{driverTestimonial.tenure}</span>
+            <motion.div
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              className="relative overflow-hidden rounded-3xl border border-gray-200 bg-gradient-to-br from-black via-gray-900 to-gray-800 p-6 text-white shadow-xl"
+            >
+              <div className="absolute -top-10 right-0 h-32 w-32 rounded-full bg-[var(--gold)]/30 blur-3xl" />
+              <div className="relative z-10 space-y-4">
+                <div className="text-xs uppercase tracking-[0.3em] text-white/60">Driver voice</div>
+                <blockquote className="text-lg font-medium leading-relaxed">"{driverTestimonial.quote}"</blockquote>
+                <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70">
+                  <span className="inline-flex h-2 w-2 rounded-full bg-[var(--gold)]" />
+                  <div>
+                    {driverTestimonial.name}
+                    <span className="ml-2 text-white/40">{driverTestimonial.tenure}</span>
+                  </div>
+                </div>
+                <p className="text-sm text-white/60">
+                  Want to compare notes driver-to-driver? Call <a href="tel:+18156691400" className="underline decoration-dotted">(815) 669-1400</a> and ask for recruiting.
+                </p>
               </div>
-              <p className="mt-4 text-sm text-white/60">
-                Want to compare notes driver-to-driver? Call <a href="tel:+18156691400" className="underline decoration-dotted">(815) 669-1400</a> and ask for recruiting.
-              </p>
-            </div>
+              <div className="absolute bottom-0 right-0 h-24 w-32 overflow-hidden opacity-60">
+                <img src={ASSETS.heroTruck} alt="Driver highlight" className="h-full w-full rounded-tl-3xl object-cover" />
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      </div>
-    </Container>
-  </section>
-);
+        </div>
+      </Container>
+    </section>
+  );
+};
 
 // DRIVERS - CONTACT RECRUITING
 const Contact = () => {
@@ -981,7 +1043,15 @@ const QuoteWizard = ({ open, onClose }) => {
   ];
   const progress = ((step + 1) / steps.length) * 100;
   const isLastStep = step === steps.length - 1;
+  const currentFields = steps[step].fields;
+  const isCurrentStepValid = currentFields.every((f) => {
+    if (!f.required) return true;
+    const value = data[f.name];
+    if (value === undefined || value === null) return false;
+    return String(value).trim().length > 0;
+  });
   const submit = async () => {
+    if (!isCurrentStepValid) return;
     setSending(true);
     try {
       const res = await fetch("/api/contact", {
@@ -1075,20 +1145,20 @@ const QuoteWizard = ({ open, onClose }) => {
                 onClick={() => setStep(Math.max(0, step - 1))}
                 disabled={step === 0}
               >
-                Back
-              </Button>
-              <div className="flex flex-col items-stretch gap-2 text-center sm:flex-row sm:items-center sm:gap-3 sm:text-left">
-                {!isLastStep ? (
-                  <Button variant="glow" onClick={() => setStep(step + 1)}>
-                    Continue
-                  </Button>
-                ) : (
-                  <Button variant="glow" onClick={submit} disabled={sending}>
-                    {sending ? "Sending..." : "Submit Quote"}
-                  </Button>
-                )}
-                <span className="text-xs text-white/60">
-                  We reply with rate options and capacity confirmation within 15 minutes.
+              Back
+            </Button>
+            <div className="flex flex-col items-stretch gap-2 text-center sm:flex-row sm:items-center sm:gap-3 sm:text-left">
+              {!isLastStep ? (
+                <Button variant="glow" onClick={() => setStep(step + 1)} disabled={!isCurrentStepValid}>
+                  Continue
+                </Button>
+              ) : (
+                <Button variant="glow" onClick={submit} disabled={sending || !isCurrentStepValid}>
+                  {sending ? "Sending..." : "Submit Quote"}
+                </Button>
+              )}
+              <span className="text-xs text-white/60">
+                We reply with rate options and capacity confirmation within 15 minutes.
                 </span>
               </div>
             </div>
@@ -1222,10 +1292,10 @@ export default function App() {
       <Header route={route} setRoute={setRoute} onOpenQuote={() => setWizardOpen(true)} />
       <main>
         <Hero onOpenQuote={() => setWizardOpen(true)} />
+        <RecentLoads />
         <Services />
         <Fleet />
         <Safety />
-        <Lanes />
         <About />
         <Careers />
         <Contact />
@@ -1245,6 +1315,9 @@ export default function App() {
     </div>
   );
 }
+
+
+
 
 
 

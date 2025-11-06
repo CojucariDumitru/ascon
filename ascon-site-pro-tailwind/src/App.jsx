@@ -216,7 +216,7 @@ const SectionTitle = ({ eyebrow, title, desc, right }) => (
 );
 
 const Services = () => (
-  <section id="services" className="bg-white py-20">
+  <section id="services" className="bg-white py-20 text-black">
     <Container>
       <SectionTitle
         eyebrow="Capabilities"
@@ -295,7 +295,7 @@ const Services = () => (
 );
 
 const Fleet = () => (
-  <section id="fleet" className="bg-[var(--light)] py-20" style={{ ["--light"]: theme.light }}>
+  <section id="fleet" className="bg-[var(--light)] py-20 text-black" style={{ ["--light"]: theme.light }}>
     <Container>
       <SectionTitle
         eyebrow="Equipment"
@@ -333,7 +333,7 @@ const Fleet = () => (
 );
 
 const Safety = () => (
-  <section id="safety" className="bg-white py-20">
+  <section id="safety" className="bg-white py-20 text-black">
     <Container>
       <div className="grid gap-10 lg:grid-cols-2">
         <div>
@@ -431,7 +431,7 @@ const About = () => (
 );
 
 const Careers = () => (
-  <section id="careers" className="bg-white py-20">
+  <section id="careers" className="bg-white py-20 text-black">
     <Container>
       <div className="grid gap-10 lg:grid-cols-2">
         <div>

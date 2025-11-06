@@ -105,11 +105,11 @@ const Header = ({ route, setRoute, onOpenQuote }) => {
   return (
     <motion.header
       initial={false}
-      animate={{ height: scrolled ? 72 : 84, backgroundColor: scrolled ? "rgba(8, 8, 10, 0.8)" : "rgba(11,11,11,0.2)" }}
-      transition={{ type: "spring", stiffness: 200, damping: 30 }}
+      animate={{ height: scrolled ? 72 : 84, backgroundColor: scrolled ? "rgba(8, 8, 10, 0.85)" : "rgba(11,11,11,0.45)" }}
+      transition={{ type: "spring", stiffness: 240, damping: 28 }}
       className={cx(
-        "sticky top-0 z-40 border-b border-transparent backdrop-blur-sm transition-[border-color,backdrop-filter] duration-300 supports-[backdrop-filter]:backdrop-blur-lg",
-        scrolled ? "border-white/10 shadow-[0_15px_30px_rgba(0,0,0,0.35)]" : "border-white/0"
+        "sticky top-0 z-40 border-b border-transparent transition-[border-color,background-color] duration-200",
+        scrolled ? "border-white/10 shadow-[0_10px_28px_rgba(0,0,0,0.3)]" : "border-white/0"
       )}
     >
       <Container className="flex h-full items-center justify-between gap-4">
@@ -238,8 +238,8 @@ const Hero = ({ onOpenQuote }) => (
             key={stat.label}
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 + i * 0.1, duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
-            className="rounded-3xl border border-white/15 bg-black/40 p-5 backdrop-blur-md text-white/80"
+            transition={{ delay: 0.35 + i * 0.08, duration: 0.45, ease: [0.33, 1, 0.68, 1] }}
+            className="rounded-3xl border border-white/15 bg-black/55 p-5 text-white/80"
           >
             <div className="text-xs uppercase tracking-[0.25em] text-white/50">{stat.label}</div>
             <div className="mt-3 text-3xl font-semibold text-white">{stat.value}</div>
@@ -247,7 +247,7 @@ const Hero = ({ onOpenQuote }) => (
         ))}
       </div>
     </Container>
-    <div className="border-t border-white/15 bg-black/60 backdrop-blur">
+    <div className="border-t border-white/15 bg-black/60">
       <Container className="py-4">
         <div className="flex items-center justify-between text-white/65 text-xs sm:text-sm gap-4 overflow-x-auto no-scrollbar">
           {["Steel & Machinery", "Construction Materials", "Energy & Infrastructure", "Project Freight", "Expedite", "Secure Storage"].map(
@@ -327,11 +327,12 @@ const Services = () => (
             key={service.title}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -6, scale: 1.01 }}
+            whileHover={{ y: -4, scale: 1.005 }}
             whileTap={{ scale: 0.995 }}
-            transition={{ delay: i * 0.05, duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ delay: i * 0.03, duration: 0.18, ease: [0.33, 1, 0.68, 1] }}
             viewport={{ once: true, amount: 0.4 }}
-            className="group relative overflow-hidden rounded-3xl border border-gray-200/70 bg-white/95 p-7 shadow-sm transition-all duration-200 hover:border-gray-200 hover:shadow-2xl"
+            className="group relative overflow-hidden rounded-3xl border border-gray-200/70 bg-white/95 p-7 shadow-sm transition-all duration-150 hover:border-gray-200 hover:shadow-xl"
+            style={{ willChange: "transform" }}
           >
             <div className="pointer-events-none absolute -top-32 right-0 h-48 w-48 rounded-full bg-[var(--gold)]/10 blur-3xl transition-all duration-500 group-hover:-top-20 group-hover:blur-xl" />
             <div className="flex items-center justify-between gap-3">
@@ -716,7 +717,7 @@ const Lanes = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-                  className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/10 bg-black/70 px-5 py-4 backdrop-blur"
+                  className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/10 bg-black/75 px-5 py-4"
                 >
                   <div className="text-xs uppercase tracking-[0.3em] text-white/60">{activeLane.name}</div>
                   <div className="mt-2 text-sm text-white/85">{activeLane.summary}</div>
@@ -742,11 +743,12 @@ const Lanes = () => {
                   onMouseEnter={() => setActiveLane(lane)}
                   onFocus={() => setActiveLane(lane)}
                   onClick={() => setActiveLane(lane)}
-                  whileHover={{ y: -4 }}
+                  whileHover={{ y: -2 }}
                   className={cx(
                     "w-full rounded-3xl border px-5 py-4 text-left transition",
                     active ? "border-[var(--gold)] bg-white/10 text-white shadow-lg" : "border-white/10 bg-white/5 text-white/80 hover:border-[var(--gold)]/40"
                   )}
+                  style={{ willChange: "transform" }}
                 >
                   <div className="flex items-center justify-between gap-3">
                     <div className="text-base font-semibold">{lane.name}</div>

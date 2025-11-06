@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+﻿import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 /**
@@ -212,7 +212,7 @@ const Hero = ({ onOpenQuote }) => (
           Elite Flatbed Precision For Critical Freight
         </h1>
         <p className="mt-5 max-w-2xl text-white/85 text-base sm:text-lg">
-          We roll securement-first crews, white-glove updates, and coast-to-coast coverage so your high-value freight hits the dock ready. Every move is partner-caliberâ€”timelines, communication, and appearance dialed in.
+          We roll securement-first crews, white-glove updates, and coast-to-coast coverage so your high-value freight hits the dock ready. Every move is partner caliber: timelines, communication, and appearance dialed in.
         </p>
         <div className="mt-9 flex flex-wrap items-center gap-4">
           <Button onClick={onOpenQuote} variant="glow">
@@ -277,62 +277,38 @@ const services = [
   {
     title: "Flatbed & Step-Deck",
     desc: "Steel, machinery, lumber, and O/D freight with best-practice securement.",
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-6 w-6">
-        <path fill="currentColor" d="M3 15h12l5-4h1v6h-2a2 2 0 1 1-4 0H9a2 2 0 1 1-4 0H3v-2Z" />
-      </svg>
-    ),
-    highlights: ["53' flats & step decks", "Chains, binders, tarps", "Daily photo check-ins"],
+    highlights: ["53' & 48' mix", "Chains, binders, tarps", "Daily photo check-ins"],
+    badge: "Core Fleet",
   },
   {
     title: "Time-Definite Flatbed",
     desc: "Planned time windows with proactive check-calls.",
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-6 w-6">
-        <path fill="currentColor" d="M12 8v5l4 2" />
-      </svg>
-    ),
     highlights: ["Milestone tracking", "Live ETA adjustments", "Night dispatch coverage"],
+    badge: "Precision Timing",
   },
   {
     title: "Project Freight",
     desc: "Multi-unit, multi-stop coordination under a single point of contact.",
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-6 w-6">
-        <path fill="currentColor" d="M4 4h6v6H4V4Zm10 0h6v6h-6V4ZM4 14h6v6H4v-6Zm10 0h6v6h-6v-6Z" />
-      </svg>
-    ),
     highlights: ["Sequenced deliveries", "On-site SOP briefings", "Dedicated project chat"],
+    badge: "Rollouts",
   },
   {
     title: "Over-Dimension Support",
     desc: "Permits, escorts, and compliant routing.",
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-6 w-6">
-        <path fill="currentColor" d="M12 2 3 6v6c0 5 4 9 9 10 5-1 9-5 9-10V6l-9-4Z" />
-      </svg>
-    ),
     highlights: ["Route surveys", "Permit management", "Escort coordination"],
+    badge: "OD Expertise",
   },
   {
     title: "24/7 After-Hours",
     desc: "Real-time updates and calm problem-solving at any hour.",
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-6 w-6">
-        <path fill="currentColor" d="M12 8v5l4 2" />
-      </svg>
-    ),
     highlights: ["War-room escalation", "Ops leadership on-call", "Issue resolution scripts"],
+    badge: "Always On",
   },
   {
     title: "Broker & Shipper Partners",
     desc: "Transparent ELD data and on-time docs.",
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-6 w-6">
-        <path fill="currentColor" d="M7 4h10v4H7V4Zm0 6h10v10H7V10Z" />
-      </svg>
-    ),
-    highlights: ["Shared ELD visibility", "Doc turn-in under 2 hrs", "Dedicated Slack or email"],
+    highlights: ["Shared ELD visibility", "Doc turn-in < 2 hrs", "Dedicated Slack or email"],
+    badge: "Partner Mode",
   },
 ];
 
@@ -351,20 +327,23 @@ const Services = () => (
             key={service.title}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -12, rotateX: 4, rotateY: -4 }}
-            whileTap={{ scale: 0.99 }}
-            transition={{ delay: i * 0.05, duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
+            whileHover={{ y: -6, scale: 1.01 }}
+            whileTap={{ scale: 0.995 }}
+            transition={{ delay: i * 0.05, duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
             viewport={{ once: true, amount: 0.4 }}
-            className="group relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-7 shadow-sm transition duration-300 hover:shadow-xl"
+            className="group relative overflow-hidden rounded-3xl border border-gray-200/70 bg-white/95 p-7 shadow-sm transition-all duration-200 hover:border-gray-200 hover:shadow-2xl"
           >
-            <div className="pointer-events-none absolute -top-32 right-0 h-48 w-48 rounded-full bg-[var(--gold)]/10 blur-3xl transition-all duration-500 group-hover:-top-16 group-hover:blur-2xl" />
-            <div className="flex items-center gap-3 text-[var(--gold)]" style={{ color: theme.gold }}>
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--gold)]/10 text-[var(--gold)]">
-                {service.icon}
-              </div>
-              <h3 className="text-xl font-semibold text-black">{service.title}</h3>
+            <div className="pointer-events-none absolute -top-32 right-0 h-48 w-48 rounded-full bg-[var(--gold)]/10 blur-3xl transition-all duration-500 group-hover:-top-20 group-hover:blur-xl" />
+            <div className="flex items-center justify-between gap-3">
+              <span className="inline-flex items-center rounded-full border border-gray-200/70 bg-gray-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-gray-500">
+                {service.badge}
+              </span>
+              <span className="text-xs font-semibold text-gray-300">0{i + 1}</span>
             </div>
-            <p className="mt-3 text-sm text-gray-600">{service.desc}</p>
+            <div className="mt-5 space-y-3">
+              <h3 className="text-xl font-semibold text-black">{service.title}</h3>
+              <p className="text-sm text-gray-600">{service.desc}</p>
+            </div>
             <div className="mt-5 flex flex-wrap gap-2 text-xs text-gray-600">
               {service.highlights.map((highlight) => (
                 <span
@@ -376,7 +355,7 @@ const Services = () => (
                 </span>
               ))}
             </div>
-            <div className="mt-6 h-1 w-14 rounded-full" style={{ background: theme.gold }} />
+            <div className="mt-6 h-[3px] w-16 rounded-full transition-all duration-200 group-hover:w-20" style={{ background: theme.gold }} />
           </motion.div>
         ))}
       </div>
@@ -598,6 +577,7 @@ const Safety = () => {
 const lanePins = [
   {
     name: "Midwest <-> Texas",
+    short: "Midwest <> Texas",
     summary: "Steel and machinery lanes linking the Great Lakes with the Gulf.",
     coords: { x: 52, y: 68 },
     lanes: ["Chicago <-> Dallas", "Joliet <-> Houston", "Gary <-> San Antonio"],
@@ -605,6 +585,7 @@ const lanePins = [
   },
   {
     name: "Midwest <-> Southeast",
+    short: "Midwest <> Southeast",
     summary: "High-service flatbed into the Carolinas, Georgia, and Florida panhandle.",
     coords: { x: 68, y: 66 },
     lanes: ["Chicago <-> Charlotte", "Joliet <-> Atlanta", "Louisville <-> Jacksonville"],
@@ -612,6 +593,7 @@ const lanePins = [
   },
   {
     name: "Midwest <-> Mountain West",
+    short: "Midwest <> Mountain",
     summary: "Winter-experienced teams covering I-80 and I-70 corridors.",
     coords: { x: 30, y: 48 },
     lanes: ["Chicago <-> Denver", "Rockford <-> Salt Lake City", "Quad Cities <-> Boise"],
@@ -619,6 +601,7 @@ const lanePins = [
   },
   {
     name: "Great Lakes Regional",
+    short: "Great Lakes",
     summary: "Daily loops supporting steel and manufacturing between IL, IN, MI, OH, and WI.",
     coords: { x: 54, y: 46 },
     lanes: ["Aurora <-> Detroit", "Chicago <-> Cleveland", "Milwaukee <-> Indianapolis"],
@@ -626,6 +609,7 @@ const lanePins = [
   },
   {
     name: "Illinois <-> Ohio Corridor",
+    short: "IL <> OH",
     summary: "Precision timing for coil, plate, and tube processors.",
     coords: { x: 60, y: 50 },
     lanes: ["Joliet <-> Toledo", "Gary <-> Columbus", "Calumet City <-> Youngstown"],
@@ -633,6 +617,7 @@ const lanePins = [
   },
   {
     name: "Rapid build projects",
+    short: "Rapid Build",
     summary: "Pop-up lanes built for plant launches and construction surges.",
     coords: { x: 45, y: 58 },
     lanes: ["Aurora staging hub", "Nationwide surge capacity", "Broker collaboration pods"],
@@ -656,6 +641,54 @@ const Lanes = () => {
             <div className="relative h-80 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#0b1220] shadow-xl">
               <div className="absolute inset-0 opacity-60" style={{ backgroundImage: "radial-gradient(circle at 20% 30%, rgba(198,166,100,0.25), transparent 55%), radial-gradient(circle at 80% 70%, rgba(59,130,246,0.2), transparent 50%)" }} />
               <div className="absolute inset-0">
+                <svg viewBox="0 0 600 360" className="absolute inset-0 h-full w-full text-white/15" role="presentation">
+                  <defs>
+                    <linearGradient id="lane-glow" x1="0%" x2="100%" y1="0%" y2="100%">
+                      <stop offset="0%" stopColor="rgba(148,163,184,0.05)" />
+                      <stop offset="100%" stopColor="rgba(30,64,175,0.25)" />
+                    </linearGradient>
+                    <radialGradient id="lane-node" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stopColor="rgba(198,166,100,0.45)" />
+                      <stop offset="80%" stopColor="rgba(198,166,100,0.05)" />
+                      <stop offset="100%" stopColor="transparent" />
+                    </radialGradient>
+                  </defs>
+                  <path
+                    d="M70 180 L110 150 L170 155 L210 120 L270 125 L320 160 L380 150 L430 175 L490 185 L540 175 L565 205 L520 240 L485 260 L420 250 L360 230 L300 225 L240 240 L190 225 L150 205 L120 225 L95 205 Z"
+                    fill="url(#lane-glow)"
+                    stroke="rgba(148,163,184,0.22)"
+                    strokeWidth="1.4"
+                  />
+                  {[{ x: 170, y: 155 }, { x: 300, y: 225 }, { x: 420, y: 250 }, { x: 520, y: 240 }].map((node, idx) => (
+                    <circle key={idx} cx={node.x} cy={node.y} r={28} fill="url(#lane-node)" />
+                  ))}
+                  <path
+                    d="M170 155 C220 120 300 115 360 150"
+                    stroke="rgba(198,166,100,0.35)"
+                    strokeWidth="1.6"
+                    strokeDasharray="8 10"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M300 225 C360 210 430 200 520 240"
+                    stroke="rgba(59,130,246,0.25)"
+                    strokeWidth="1.2"
+                    strokeDasharray="6 9"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <div
+                  className="absolute inset-0 opacity-[0.18]"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(90deg, rgba(148,163,184,0.12) 1px, transparent 1px), linear-gradient(180deg, rgba(148,163,184,0.12) 1px, transparent 1px)",
+                    backgroundSize: "46px 46px, 46px 46px",
+                  }}
+                />
+              </div>
+              <div className="absolute inset-0">
                 {lanePins.map((lane) => {
                   const active = lane.name === activeLane.name;
                   return (
@@ -666,12 +699,12 @@ const Lanes = () => {
                       onFocus={() => setActiveLane(lane)}
                       onClick={() => setActiveLane(lane)}
                       className={cx(
-                        "absolute -translate-x-1/2 -translate-y-1/2 rounded-full border px-3 py-1 text-xs font-semibold transition",
-                        active ? "border-[var(--gold)] bg-[var(--gold)] text-black shadow-lg" : "border-white/30 bg-black/60 text-white/80 hover:bg-[var(--gold)]/20"
+                        "absolute -translate-x-1/2 -translate-y-1/2 rounded-full border px-3.5 py-1.5 text-[11px] font-semibold tracking-[0.18em] transition",
+                        active ? "border-[var(--gold)] bg-[var(--gold)] text-black shadow-xl" : "border-white/25 bg-black/60 text-white/75 hover:border-[var(--gold)]/40 hover:bg-[var(--gold)]/15"
                       )}
                       style={{ left: `${lane.coords.x}%`, top: `${lane.coords.y}%` }}
                     >
-                      {lane.name.split(' ')[0]}
+                      {lane.short}
                     </button>
                   );
                 })}
@@ -687,6 +720,14 @@ const Lanes = () => {
                 >
                   <div className="text-xs uppercase tracking-[0.3em] text-white/60">{activeLane.name}</div>
                   <div className="mt-2 text-sm text-white/85">{activeLane.summary}</div>
+                  <div className="mt-3 flex flex-wrap gap-2 text-[11px] text-white/70">
+                    {activeLane.lanes.map((route) => (
+                      <span key={route} className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1">
+                        {route}
+                      </span>
+                    ))}
+                  </div>
+                  <p className="mt-3 text-xs text-white/60">{activeLane.service}</p>
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -1040,7 +1081,7 @@ const QuoteWizard = ({ open, onClose }) => {
       fields: [
         { name: "commodity", label: "Commodity", required: true },
         { name: "weight", label: "Weight (lbs)" },
-        { name: "dims", label: "Dimensions (LÃƒâ€”WÃƒâ€”H)" },
+        { name: "dims", label: "Dimensions (L x W x H)" },
       ],
     },
     {
@@ -1334,6 +1375,8 @@ export default function App() {
     </div>
   );
 }
+
+
 
 
 
